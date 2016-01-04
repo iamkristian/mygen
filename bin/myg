@@ -1,7 +1,20 @@
 #!/usr/bin/env ruby
 
 require 'mygen'
+require 'optsparser'
 
-print "Hej"
+options = {}
+option_parser = OptionParser.new do |opts|
+  opts.on("gen PROJECT") do |project|
+    options[:generate] = project
+  end
 
+  opts.on("-u USER") do |user|
+    options[:user] = user
+  end
+
+end
+
+option_parser.parse!
+puts option_parser.inspect
 
