@@ -9,9 +9,11 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Kristian Rasmussen"]
   spec.email         = ["me@krx.io"]
 
-  spec.summary       = %q{TODO: Write a short summary, because Rubygems requires one.}
-  spec.description   = %q{TODO: Write a longer description or delete this line.}
-  spec.homepage      = "TODO: Put your gem's website or public repo URL here."
+  spec.summary       = %q{Code generator for generating project structures,
+  for various languages}
+  spec.description   = %q{Code generator that helps you generating project
+  structures, filtering files. Plugable in a git like manner.}
+  spec.homepage      = "https://github.com/iamkristian/mygen"
   spec.license       = "MIT"
 
   # Prevent pushing this gem to RubyGems.org by setting 'allowed_push_host', or
