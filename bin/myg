@@ -21,8 +21,8 @@ default_value 'the default'
 arg_name 'The name of the argument'
 flag [:f,:flagname]
 
-desc 'Describe generate here'
-arg_name 'Describe arguments to generate here'
+desc 'Apply an arbitrary generator'
+arg_name 'The generator to run'
 command :generate do |c|
   c.desc 'Describe a switch to generate'
   c.switch :s
