@@ -32,7 +32,6 @@ command :generate do |c|
   c.flag :f
   Mygen::Plugins.load.each do |p|
     plugin = p.new
-    byebug
     c.desc plugin.description
     c.command p.name.downcase.to_sym do |s|
       plugin.plugin_commands(s) if plugin.respond_to?(:plugin_commands)
