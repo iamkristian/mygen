@@ -4,7 +4,7 @@ module Mygen
   # Add all subdirs to $LOAD_PATH, and get ancestors of the generator class
   # And register them in the myg shell command
   #
-  class Plugins
+  module Plugins
     def self.load(path = File.join(ENV['HOME'], ".mygen", "plugins"))
       dirs = Dir.glob(File.join(path, "**/*.rb"))
       dirs.each do |d|
@@ -20,5 +20,6 @@ module Mygen
       klass = File.basename(plugin, '.rb').downcase
       require klass
     end
+
   end
 end

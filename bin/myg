@@ -33,8 +33,13 @@ command :generate do |c|
   Mygen::Plugins.load.each do |p|
     plugin = p.new
     c.desc plugin.description
-    c.command p.name.downcase.to_sym do |s|
+    c.arg 'name'
+    c.command plugin.generator_name.to_sym do |s|
       plugin.plugin_commands(s) if plugin.respond_to?(:plugin_commands)
+      s.action do |global_options, options, args|
+        plugin.name = args[0]
+        plugin.call if plugin.respond_to?(:call)
+      end
     end
   end
   c.action do |global_options,options,args|
