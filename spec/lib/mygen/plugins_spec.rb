@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 RSpec.describe Mygen::Plugins do
-
   context "#load" do
     subject { Mygen::Plugins.load(File.join(Mygen.root, 'spec', 'plugins')) }
 

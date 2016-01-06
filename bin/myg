@@ -3,6 +3,7 @@
 require 'mygen'
 require 'gli'
 require 'mygen'
+require 'byebug'
 
 include GLI::App
 
@@ -28,8 +29,15 @@ command :generate do |c|
   c.switch :s
 
   c.desc 'Describe a flag to generate'
-  c.default_value 'default'
   c.flag :f
+  Mygen::Plugins.load.each do |p|
+    plugin = p.new
+    byebug
+    c.desc plugin.description
+    c.command p.name.downcase.to_sym do |s|
+      plugin.plugin_commands(s) if plugin.respond_to?(:plugin_commands)
+    end
+  end
   c.action do |global_options,options,args|
 
     # Your command logic here

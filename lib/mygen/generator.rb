@@ -3,5 +3,9 @@ module Mygen
     def self.descendants
       ObjectSpace.each_object(Class).select { |klass| klass < self }
     end
+
+    def description
+      "Plugin has no description"
+    end
   end
 end
