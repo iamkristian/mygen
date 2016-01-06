@@ -1,0 +1,15 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    term-ansicolor (1.3.2)
+      tins (~> 1.0)
+    tins (1.8.1)
+
+PLATFORMS
+  x86-mingw32
+
+DEPENDENCIES
+  term-ansicolor
+
+BUNDLED WITH
+   1.11.0
