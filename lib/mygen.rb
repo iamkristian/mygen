@@ -5,7 +5,6 @@ require "mygen/generator"
 require "erb"
 
 module Mygen
-
   def self.root
     File.dirname __dir__
   end

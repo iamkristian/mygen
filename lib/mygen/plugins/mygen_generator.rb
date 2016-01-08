@@ -7,10 +7,12 @@ module Mygen
       end
 
       def call
-        puts "create generator named #{@name}"
+        puts "create generator named #{name}"
+        make_template_tree(true)
+        @bleh = "fish"
+        @name = name
         b = binding
-        fileutils.mkdir(@name)
-
+        parse_template_files(internal_template_files, b)
       end
     end
   end
