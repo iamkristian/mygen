@@ -9,7 +9,7 @@ RSpec.describe Mygen::Plugins do
     end
 
     it "finds two plugins" do
-      expect(subject.size).to eq 2
+      expect(subject.size).to eq 3
     end
   end
 end

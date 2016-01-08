@@ -8,6 +8,8 @@ module Mygen
 
       def call
         puts "create generator named #{@name}"
+        b = binding
+        fileutils.mkdir(@name)
 
       end
     end

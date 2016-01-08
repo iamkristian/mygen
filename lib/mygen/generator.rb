@@ -1,6 +1,6 @@
 module Mygen
   class Generator
-    attr_accessor :name, :destination
+    attr_accessor :name, :destination, :dry_run
     def self.descendants
       ObjectSpace.each_object(Class).select { |klass| klass < self }
     end
@@ -16,6 +16,10 @@ module Mygen
         tr("-", "_").
         split('/').last.
         downcase
+    end
+
+    def fileutils
+      dry_run ? FileUtils::DryRun : FileUtils::Verbose
     end
 
     def parse
@@ -36,8 +40,10 @@ module Mygen
     # or appended
     #
     def write_to_path(path, content)
+    end
 
-
+    def template_files(path = File.join(ENV['HOME'], ".mygen", "plugins", generator_name, "templates"))
+      Dir.glob(path, '**/*')
     end
   end
 end

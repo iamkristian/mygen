@@ -10,7 +10,6 @@ module Mygen
       dirs.each do |d|
         register_plugin(d)
       end
-      puts Generator.descendants
       Generator.descendants
     end
 
@@ -20,6 +19,5 @@ module Mygen
       klass = File.basename(plugin, '.rb').downcase
       require klass
     end
-
   end
 end

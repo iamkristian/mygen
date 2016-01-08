@@ -14,20 +14,17 @@ version Mygen::VERSION
 subcommand_option_handling :normal
 arguments :strict
 
-desc 'Describe some switch here'
-switch [:s,:switch]
+desc "Dry run, doesn't change files"
+switch :s
+
 
 desc 'Describe some flag here'
 default_value 'the default'
-arg_name 'The name of the argument'
-flag [:f,:flagname]
+
 
 desc 'Apply an arbitrary generator'
 arg_name 'The generator to run'
 command :generate do |c|
-  c.desc 'Describe a switch to generate'
-  c.switch :s
-
   c.desc 'Describe a flag to generate'
   c.flag :f
   Mygen::Plugins.load.each do |p|
@@ -37,6 +34,7 @@ command :generate do |c|
     c.command plugin.generator_name.to_sym do |s|
       plugin.plugin_commands(s) if plugin.respond_to?(:plugin_commands)
       s.action do |global_options, options, args|
+        plugin.dry_run = global_options[:s]
         plugin.name = args[0]
         plugin.call if plugin.respond_to?(:call)
       end
