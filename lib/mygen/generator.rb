@@ -37,16 +37,6 @@ module Mygen
       erb.result b
     end
 
-    def mkdir(path)
-
-    end
-
-    # Check if the file exist - if so should content be overwritten,
-    # or appended
-    #
-    def write_to_path(path, content)
-    end
-
     def template_files(path = template_source_dir)
       Dir.glob(File.join(path, "**/*"))
     end
@@ -65,6 +55,9 @@ module Mygen
     end
 
     def parse_template_files(files, bindings)
+        # rename directories that should be filtered, from __name
+        # files should be from the destination, so no dirs needs to be filtered
+        # and only files need to be processed.
       files.each do |file|
         dest = file_destination(File.join(name), file, bindings)
       end
