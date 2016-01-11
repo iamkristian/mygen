@@ -38,7 +38,11 @@ module Mygen
     end
 
     def template_files(path = template_source_dir)
-      Dir.glob(File.join(path, "**/*"))
+      Dir.glob(File.join(path, "**/*")).select { |f| File.file? f }
+    end
+
+    def template_dirs(path = template_source_dir)
+      Dir.glob(File.join(path, "**/*")).select { |f| File.directory? f }
     end
 
     def internal_template_files
@@ -58,6 +62,9 @@ module Mygen
         # rename directories that should be filtered, from __name
         # files should be from the destination, so no dirs needs to be filtered
         # and only files need to be processed.
+      #
+#      Filter directories, with names
+#      Filter files with erb
       files.each do |file|
         dest = file_destination(File.join(name), file, bindings)
       end

@@ -34,15 +34,15 @@ RSpec.describe Mygen::Generator do
     it "substitutes erb files" do
       name = "fish"
       b = binding
-      file = plugin.template_files[1]
+      file = plugin.template_files.first
       expect(plugin.file_destination(File.join("fish"), file, b)).to eq "/lib/fish.rb"
     end
 
     it "substitutes __ named directories" do
       name = "fish"
       b = binding
-      file = plugin.template_files.last
-      expect(plugin.file_destination(File.join("fish"), file, b)).to eq "/fish"
+      file = plugin.template_dirs.last
+      expect(plugin.file_destination(File.join("fish"), file, b)).to eq "/lib/fish"
     end
   end
 end
