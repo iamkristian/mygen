@@ -8,8 +8,8 @@ RSpec.describe Mygen::Plugins do
       expect(subject).to be_a Array
     end
 
-    it "finds two plugins" do
-      expect(subject.size).to eq 3
+    it "finds 3 plugins" do
+      expect(subject.size).to eq 4
     end
   end
 end
