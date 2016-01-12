@@ -12,7 +12,7 @@ module Mygen
         @bleh = "fish"
         @name = name
         b = binding
-        parse_template_files(internal_template_files, b)
+        parse_templates(b)
       end
     end
   end

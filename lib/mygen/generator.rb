@@ -1,6 +1,6 @@
 module Mygen
   class Generator
-    attr_accessor :name, :destination, :dry_run, :template_source_dir
+    attr_accessor :name, :dest_dir, :dry_run, :template_source_dir
 
     def initialize
       @template_source_dir = File.join(ENV['HOME'], ".mygen", "plugins", generator_name, "templates")
@@ -55,18 +55,24 @@ module Mygen
 
     def make_template_tree(internal = false)
       @template_source_dir = internal_template_source_dir if internal
-      fileutils.cp_r(template_source_dir, name)
+      fileutils.cp_r(template_source_dir, dest_dir)
     end
 
-    def parse_template_files(files, bindings)
+    def parse_templates(bindings)
         # rename directories that should be filtered, from __name
         # files should be from the destination, so no dirs needs to be filtered
         # and only files need to be processed.
       #
-#      Filter directories, with names
+      template_dirs(File.join(dest_dir)).each do |dir|
+        dest = file_destination(File.join(dest_dir), dir, bindings)
+        #fileutils.mv(dir, dest)
+        puts "#{dir} -> #{dest}"
+      end
 #      Filter files with erb
-      files.each do |file|
-        dest = file_destination(File.join(name), file, bindings)
+      template_files(File.join(dest_dir)).each do |file|
+        dest = file_destination(File.join(dest_dir), file, bindings)
+        #fileutils.mv(dir, dest)
+        puts "#{file} -> #{dest}"
       end
     end
 

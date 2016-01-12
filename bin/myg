@@ -36,6 +36,7 @@ command :generate do |c|
       s.action do |global_options, options, args|
         plugin.dry_run = global_options[:s]
         plugin.name = args[0]
+        plugin.dest_dir = args[0]
         plugin.call if plugin.respond_to?(:call)
       end
     end
