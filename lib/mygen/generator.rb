@@ -27,16 +27,6 @@ module Mygen
       dry_run ? FileUtils::DryRun : FileUtils::Verbose
     end
 
-    def parse
-      # read template files
-      # eval generator rb for variables
-      # process all template files with generator bindings
-      files = Dir.glob("spec/fixtures/template/**")
-      erb = ERB.new(File.read(files[0]))
-      b = binding
-      erb.result b
-    end
-
     def template_files(path = template_source_dir)
       Dir.glob(File.join(path, "**/*")).select { |f| File.file? f }
     end
@@ -59,20 +49,30 @@ module Mygen
       fileutils.cp_r(template_source_dir, dest_dir)
     end
 
+    # rename directories that should be filtered, from __name
+    # files should be from the destination, so no dirs needs to be filtered
+    # and only files need to be processed.
+    #
     def parse_templates(bindings)
-        # rename directories that should be filtered, from __name
-        # files should be from the destination, so no dirs needs to be filtered
-        # and only files need to be processed.
-      #
       template_dirs(File.join(dest_dir)).each do |dir|
-        dest = file_destination(File.join(dest_dir), dir, bindings)
+        dest = file_destination(dir, bindings)
         move_file_in_place(dir, dest)
       end
 #      Filter files with erb
       template_files(File.join(dest_dir)).each do |file|
-        dest = file_destination(File.join(dest_dir), file, bindings)
+        dest = file_destination(file, bindings)
+        # This is where you parse the erb files and fill in the contens
+        if file.end_with? 'erb'
+          parse(file, bindings)
+        end
         move_file_in_place(file, dest)
       end
+    end
+
+    def parse(file, bindings)
+      erb = ERB.new(File.read(file))
+      result = erb.result bindings
+      File.open(file, "w") { |f| f.write(result) }
     end
 
     def move_file_in_place(src, dest)
@@ -86,7 +86,7 @@ module Mygen
       erb.result bindings
     end
 
-    def file_destination(dest_dir, file, bindings)
+    def file_destination(file, bindings)
       # subtract template_source_dir from path, add dest_dir and substitute filenames
       new_file = file.gsub(template_source_dir, '')
       replaced_filename(new_file, bindings)
