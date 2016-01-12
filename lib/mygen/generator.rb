@@ -55,6 +55,7 @@ module Mygen
 
     def make_template_tree(internal = false)
       @template_source_dir = internal_template_source_dir if internal
+      fileutils.rm_rf(dest_dir) if File.exist?(dest_dir)
       fileutils.cp_r(template_source_dir, dest_dir)
     end
 
@@ -65,15 +66,19 @@ module Mygen
       #
       template_dirs(File.join(dest_dir)).each do |dir|
         dest = file_destination(File.join(dest_dir), dir, bindings)
-        #fileutils.mv(dir, dest)
-        puts "#{dir} -> #{dest}"
+        move_file_in_place(dir, dest)
       end
 #      Filter files with erb
       template_files(File.join(dest_dir)).each do |file|
         dest = file_destination(File.join(dest_dir), file, bindings)
-        #fileutils.mv(dir, dest)
-        puts "#{file} -> #{dest}"
+        move_file_in_place(file, dest)
       end
+    end
+
+    def move_file_in_place(src, dest)
+      sf = File.absolute_path(src)
+      df = File.absolute_path(dest)
+      fileutils.mv(sf, df) unless sf == df
     end
 
     def parse_and_place_file(file, dest, bindings)
