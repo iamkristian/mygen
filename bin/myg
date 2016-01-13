@@ -3,7 +3,6 @@
 require 'mygen'
 require 'gli'
 require 'mygen'
-require 'byebug'
 
 include GLI::App
 
