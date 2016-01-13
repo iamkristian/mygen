@@ -6,7 +6,7 @@ module Mygen
   #
   module Plugins
     home = ENV['HOME'].gsub /\\/, '/'
-    def self.load(path = File.join(, ".mygen", "plugins"))
+    def self.load(path = File.join(home, ".mygen", "plugins"))
       dirs = Dir.glob(File.join(path, "**/*.rb"))
       dirs.each do |d|
         register_plugin(d)
