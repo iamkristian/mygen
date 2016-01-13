@@ -5,8 +5,8 @@ module Mygen
   # And register them in the myg shell command
   #
   module Plugins
-    home = ENV['HOME'].gsub /\\/, '/'
-    def self.load(path = File.join(home, ".mygen", "plugins"))
+    def self.load(path = File.join( ENV['HOME'], ".mygen", "plugins"))
+      path = path.gsub /\\/, '/'
       dirs = Dir.glob(File.join(path, "**/*.rb"))
       dirs.each do |d|
         register_plugin(d)
