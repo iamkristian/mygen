@@ -3,7 +3,7 @@ require 'mygen/generator'
 module <%= name.capitalize %>
   class <%= name.capitalize %>Generator < Mygen::Generator
     def description
-      %w(A good long description matching the features of <%= name %>)
+      %{ A good long description matching the features of <%= name %> }
     end
 
     def call
