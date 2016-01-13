@@ -1,0 +1,17 @@
+require 'mygen/generator'
+
+module <%= name.capitalize %>
+  class <%= name.capitalize %>Generator < Mygen::Generator
+    def description
+      %w(A good long description matching the features of <%= name %>)
+    end
+
+    def call
+      make_template_tree
+      @bleh = "fish"
+      @name = name
+      b = binding
+      parse_templates(b)
+    end
+  end
+end
