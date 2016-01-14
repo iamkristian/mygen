@@ -1,5 +1,7 @@
+require 'mygen/naming'
 module Mygen
   class Generator
+    include Mygen::Naming
     attr_accessor :name, :dest_dir, :dry_run, :template_source_dir
 
     def initialize
