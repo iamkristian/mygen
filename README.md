@@ -24,6 +24,11 @@ Or install it yourself as:
 myg --help
 ```
 
+
+## Substitution of filenames
+
+Files named with ´´´ __name ´´´ will be renamed to match the attribute ´´´ name ´´´
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
