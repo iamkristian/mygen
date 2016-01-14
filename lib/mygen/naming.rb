@@ -33,5 +33,9 @@ module Mygen
     def dash_case(str)
       snake_case(str).tr('_','-')
     end
+
+    def no_case(str)
+      str.downcase.gsub /(-|_)/, ''
+    end
   end
 end

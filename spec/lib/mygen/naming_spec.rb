@@ -28,5 +28,11 @@ RSpec.describe Mygen::Naming do
       expect(dash_case("this_is_an_example_of_camel_case")).to eq "this-is-an-example-of-camel-case"
     end
   end
+
+  context "#no_case" do
+    it "converts - or _ into nothing, and downcases" do
+      expect(no_case("This-is_A-String")).to eq "thisisastring"
+    end
+  end
 end
 
