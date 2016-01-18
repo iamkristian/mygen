@@ -41,12 +41,10 @@ command :generate do |c|
     end
   end
   c.action do |global_options,options,args|
-
     # Your command logic here
     # If you have any errors, just raise them
     # raise "that command made no sense"
-
-    puts "generate command ran"
+    help_now!('Select a generator') if args.empty?
   end
 end
 
