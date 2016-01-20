@@ -2,7 +2,7 @@ require 'mygen/naming'
 module Mygen
   class Generator
     include Mygen::Naming
-    attr_accessor :name, :dest_dir, :dry_run, :template_source_dir
+    attr_accessor :name, :dest_dir, :dry_run, :template_source_dir, :options
 
     def initialize
       @template_source_dir = File.join(ENV['HOME'], ".mygen", "plugins", generator_name, "templates")
