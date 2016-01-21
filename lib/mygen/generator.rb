@@ -1,4 +1,5 @@
 require 'mygen/naming'
+
 module Mygen
   class Generator
     include Mygen::Naming
@@ -59,10 +60,10 @@ module Mygen
       template_dirs(File.join(dest_dir)).each do |dir|
         dest = file_destination(dir, bindings)
         parent_dir = File.expand_path("..", dest)
-        fileutils.mkdir_p(parent_dir) unless File.exist?(parent_dir)
+        fileutils.mkdir_p(parent_dir) if parent_dirs_dont_exist?(dest)
         move_file_in_place(dir, dest)
       end
-#      Filter files with erb
+      # Filter files with erb
       template_files(File.join(dest_dir)).each do |file|
         dest = file_destination(file, bindings)
         # This is where you parse the erb files and fill in the contens
@@ -71,6 +72,12 @@ module Mygen
         end
         move_file_in_place(file, dest)
       end
+    end
+
+    def parent_dirs_dont_exist?(path)
+      parent_dir = File.expand_path("..", path)
+      return false if path.include?('__')
+      return !File.exist?(path)
     end
 
     def parse(file, bindings)
