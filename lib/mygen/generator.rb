@@ -7,7 +7,7 @@ module Mygen
     attr_accessor :name, :dest_dir, :dry_run, :template_source_dir, :options
 
     def initialize
-      @template_source_dir = File.join(ENV['HOME'], ".mygen", "plugins", generator_name, "templates")
+      @template_source_dir = File.join(ENV['HOME'], ".mygen", "plugins", generator_name, "templates").tr('\\', '/')
     end
 
     def self.descendants
