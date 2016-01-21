@@ -34,5 +34,11 @@ RSpec.describe Mygen::Naming do
       expect(no_case("This-is_A-String")).to eq "thisisastring"
     end
   end
+
+  context "#method_name" do
+    it "converts a string into camel case and downcases the first letter" do
+      expect(method_name("user_device")).to eq "userDevice"
+    end
+  end
 end
 

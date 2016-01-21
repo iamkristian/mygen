@@ -6,6 +6,12 @@ module Mygen
       camel_case(@name)
     end
 
+    def method_name(str)
+      result = camel_case(str)
+      result[0] = result[0].downcase
+      result
+    end
+
     def camel_case(str)
       str.gsub(/(-|_)/, '_').split('_').collect(&:capitalize).join
     end
