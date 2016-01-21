@@ -14,18 +14,15 @@ subcommand_option_handling :normal
 arguments :strict
 
 desc "Dry run, doesn't change files"
+default_value false
 switch :s
 
-
-desc 'Describe some flag here'
-default_value 'the default'
-
+desc 'Destination directory'
+flag [:D, :destination]
 
 desc 'Apply an arbitrary generator'
 arg_name 'The generator to run'
 command :generate do |c|
-  c.desc 'Describe a flag to generate'
-  c.flag :f
   Mygen::Plugins.load.each do |p|
     plugin = p.new
     c.desc plugin.description
@@ -36,7 +33,7 @@ command :generate do |c|
         plugin.options = options
         plugin.dry_run = global_options[:s]
         plugin.name = args[0]
-        plugin.dest_dir = args[0]
+        plugin.dest_dir = global_options[:destination].nil? ? args[0] : global_options[:destination]
         plugin.call if plugin.respond_to?(:call)
       end
     end
