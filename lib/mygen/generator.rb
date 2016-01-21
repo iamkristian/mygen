@@ -1,4 +1,5 @@
 require 'mygen/naming'
+# require 'byebug'
 
 module Mygen
   class Generator
@@ -89,7 +90,17 @@ module Mygen
     def move_file_in_place(src, dest)
       sf = File.absolute_path(src)
       df = File.absolute_path(dest)
-      fileutils.mv(sf, df) unless sf == df
+      file_exist = File.exist?(df)
+      fileutils.mv(sf, df) if sf != df && !file_exist
+
+      if file_exist && sf != df
+        Dir.glob(File.join(sf, "/*")).each do |f|
+          next if f == sf
+          file = f.sub(sf, '')
+          fileutils.mv(f, File.join(df, file))
+        end
+        fileutils.rm_rf(sf)
+      end
     end
 
     def parse_and_place_file(file, dest, bindings)
