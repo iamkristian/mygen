@@ -45,7 +45,6 @@ module Mygen
     def make_template_tree_in_current_dir
       fileutils.mkdir_p(dest_dir) unless File.exist?(dest_dir)
       files = Dir.glob(File.join(template_source_dir, "/*"))
-      puts "files: #{files}"
       fileutils.cp_r(files, dest_dir)
     end
 
