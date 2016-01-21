@@ -44,7 +44,7 @@ module Mygen
 
     def make_template_tree_in_current_dir
       fileutils.mkdir_p(dest_dir) unless File.exist?(dest_dir)
-      fileutils.cp_r(Dir.glob(File.join(template_source_dir, "*")), dest_dir)
+      fileutils.cp_r(Dir.glob(File.join(template_source_dir, "/*")), dest_dir)
     end
 
     def make_template_tree(internal = false)
