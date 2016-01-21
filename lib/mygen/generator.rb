@@ -40,6 +40,11 @@ module Mygen
       File.join(Mygen.root, "templates", generator_name)
     end
 
+    def make_template_tree_in_current_dir
+      fileutils.mkdir_p(dest_dir) unless File.exist?(dest_dir)
+      fileutils.cp_r(Dir.glob(File.join(template_source_dir, "*")), dest_dir)
+    end
+
     def make_template_tree(internal = false)
       @template_source_dir = internal_template_source_dir if internal
       fileutils.rm_rf(dest_dir) if File.exist?(dest_dir)
@@ -53,6 +58,8 @@ module Mygen
     def parse_templates(bindings)
       template_dirs(File.join(dest_dir)).each do |dir|
         dest = file_destination(dir, bindings)
+        parent_dir = File.expand_path("..", dest)
+        fileutils.mkdir_p(parent_dir) unless File.exist?(parent_dir)
         move_file_in_place(dir, dest)
       end
 #      Filter files with erb
