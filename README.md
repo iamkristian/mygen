@@ -20,14 +20,37 @@ Or install it yourself as:
 
 ## Usage
 
+Mygen will help you create repetitious code and folder structures. It works
+through plugins, that you create through mygen. Get a full list of options and
+commands with
+
 ```
 myg --help
 ```
 
+### Making a new plugin
 
-## Substitution of filenames
+Create your first plugin like this
 
-Files named with ´´´ __name ´´´ will be renamed to match the attribute ´´´ name ´´´
+```
+myg g myg my_plugin
+```
+
+This will create a plugin called ``` my_plugin ```. You will need to run the
+bundle command to install dependencies.
+
+In order for mygen to find the plugin, you can make a symlink into
+
+``` ~./.mygen/plugins/my_plugin ```
+
+or you can commit your plugin to github and clone it into you plugins folder.
+
+This will enable mygen to autodetect new plugins.
+
+
+#### Substitution of filenames
+
+Files named with ``` name ``` will be renamed to match the attribute  ``` name ```
 
 ## Development
 
