@@ -3,6 +3,7 @@ require "mygen/plugins"
 require "mygen/plugins/mygen_generator"
 require "mygen/generator"
 require "mygen/naming"
+require "mygen/files"
 require "erb"
 
 module Mygen
