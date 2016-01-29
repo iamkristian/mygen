@@ -1,4 +1,3 @@
-require 'byebug'
 module Mygen
   module Files
     def template_files(path = template_source_dir)
